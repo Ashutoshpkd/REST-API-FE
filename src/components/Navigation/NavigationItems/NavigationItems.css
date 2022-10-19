@@ -39,3 +39,12 @@
 .navigation-item button:active {
   color: #fab83f;
 }
+
+.navigation-item.mobile button {
+  color: #fab83f;
+  font: inherit;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
