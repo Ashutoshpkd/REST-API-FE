@@ -9,6 +9,7 @@ import Loader from '../../components/Loader/Loader';
 import ErrorHandler from '../../components/ErrorHandler/ErrorHandler';
 import './Feed.css';
 import useAxios, { baseURL } from '../../store/useAxios';
+import { strictSanitizeData } from '../../util/validators';
 
 function Feed(props) {
   const [isEditing, setisEditing] = useState(false);
@@ -63,7 +64,7 @@ function Feed(props) {
   const statusUpdateHandler = event => {
     event.preventDefault();
     const reqBody = {
-      status:  status,
+      status:  strictSanitizeData(status),
     };
     async function updateStatus() {
       try {
@@ -99,8 +100,8 @@ function Feed(props) {
     let url = '/feed/post';
 
     const formData = new FormData();
-    formData.append('title', postData.title);
-    formData.append('content', postData.content);
+    formData.append('title', strictSanitizeData(postData.title));
+    formData.append('content', strictSanitizeData(postData.content));
     formData.append('images', postData.image);
     if (editPost) {
       url = `${url}/${editPost._id}`;
@@ -119,8 +120,8 @@ function Feed(props) {
         const resData = res.data;
         const post = {
           _id: resData.post._id,
-          title: resData.post.title,
-          content: resData.post.content,
+          title: strictSanitizeData(resData.post.title),
+          content: strictSanitizeData(resData.post.content),
           creator: resData.post.creator,
           createdAt: resData.post.createdAt
         };

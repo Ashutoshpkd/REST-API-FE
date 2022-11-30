@@ -14,6 +14,7 @@ const filePicker = props => (
       id={props.id}
       onChange={e => props.onChange(props.id, e.target.value, e.target.files)}
       onBlur={props.onBlur}
+      accept='image/*'
     />
   </div>
 );
